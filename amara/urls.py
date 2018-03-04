@@ -1,7 +1,8 @@
-from django.urls import re_path
+from django.urls import re_path, path
 
 from amara import views
 
 urlpatterns = [
-    re_path('$', views.oo),
+    re_path(r'^collection', views.dealCollections),
+    # re_path('$', views.requestInfo),
 ]

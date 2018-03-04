@@ -98,3 +98,30 @@ urlpatterns = [
 ```
 
 访问 http://localhost:8081/amara/oo
+
+
+###错误
+
+1 RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL w
+hile maintaining POST data. Change your form to point to localhost:8081/amara/collection/ (note the trailing slash), or set APPEND_SLASH=False in your
+ Django settings.
+ 
+2 TypeError: 'xxx' object is not subscriptable 
+
+3 TypeError: Object of type 'xxx' is not JSON serializable
+```angular2html
+json.dumps(obj), default=lambda obj: obj.__dict__)
+```
+4 TypeError: 'mappingproxy' object is not callable
+```angular2html
+lambda obj: obj.__dict__
+```
+
+5 Forbidden (CSRF cookie not set.): xxx
+```angular2html
+MIDDLEWARE = [
+    ...
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    ...
+]
+```
