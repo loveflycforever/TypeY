@@ -101,5 +101,6 @@ ENV/
 .mypy_cache/
 
 .idea/
-*/migrations
+*/migrations/*_initial.py
+*/migrations/0*.py
 *.sqlite3
