@@ -2,7 +2,6 @@ import datetime
 import os
 import certifi
 import urllib3
-from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
@@ -50,7 +49,7 @@ def browser_html(html_uri, storage_directory=None, file_name=None):
     return store_html
 
 
-# 浏览器访问
+# 模拟浏览器访问
 def __browser__(uri):
     options = Options()
     options.set_headless()
