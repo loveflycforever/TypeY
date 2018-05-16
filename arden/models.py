@@ -1,72 +1,68 @@
 from django.db import models
-from django.db.models import ForeignKey
+from django.db.models import ForeignKey, IntegerField
 from django.db.models import TextField, BigIntegerField, DateTimeField, BooleanField, CharField
 
 
 class InfoDataVip(models.Model):
     vipType = BigIntegerField()
-    dueRemark = TextField()
-    accessStatus = BigIntegerField()
     vipStatus = BigIntegerField()
-    vipStatusWarn = TextField()
 
     local_recorded_at = DateTimeField(auto_now_add=True)
+
+    # dueRemark = TextField()
+    # accessStatus = BigIntegerField()
+    # vipStatusWarn = TextField()
 
 
 class InfoDataOfficialVerify(models.Model):
     type = BigIntegerField()
     desc = TextField()
+    suffix = TextField()
 
     local_recorded_at = DateTimeField(auto_now_add=True)
 
 
-class InfoDataNameplate(models.Model):
-    nid = BigIntegerField()
-    name = TextField()
-    image = TextField()
-    image_small = TextField()
-    level = TextField()
-    condition = TextField()
+# class InfoDataNameplate(models.Model):
+#     nid = BigIntegerField()
+#     name = TextField()
+#     image = TextField()
+#     image_small = TextField()
+#     level = TextField()
+#     condition = TextField()
+#
+#     local_recorded_at = DateTimeField(auto_now_add=True)
 
-    local_recorded_at = DateTimeField(auto_now_add=True)
 
-
-class InfoDataPendant(models.Model):
-    pid = BigIntegerField()
-    name = TextField()
-    image = TextField()
-    expire = BigIntegerField()
-
-    local_recorded_at = DateTimeField(auto_now_add=True)
+# class InfoDataPendant(models.Model):
+#     pid = BigIntegerField()
+#     name = TextField()
+#     image = TextField()
+#     expire = BigIntegerField()
+#
+#     local_recorded_at = DateTimeField(auto_now_add=True)
 
 
 class InfoDataLevelInfo(models.Model):
     current_level = BigIntegerField()
-    current_min = BigIntegerField()
-    current_exp = BigIntegerField()
-    next_exp = BigIntegerField()
 
     local_recorded_at = DateTimeField(auto_now_add=True)
 
+    # current_min = BigIntegerField()
+    # current_exp = BigIntegerField()
+    # next_exp = BigIntegerField()
+
 
 class InfoData(models.Model):
-    mid = TextField()
+    mid = BigIntegerField()
     name = TextField()
-    approve = BooleanField()
     sex = TextField()
-    rank = TextField()
+    rank = BigIntegerField()
     face = TextField()
-    DisplayRank = TextField()
     regtime = BigIntegerField()
     spacesta = BigIntegerField()
     birthday = TextField()
-    place = TextField()
-    description = TextField()
-    article = BigIntegerField()
     sign = TextField()
     level_info = ForeignKey(InfoDataLevelInfo, on_delete=models.DO_NOTHING)
-    pendant = ForeignKey(InfoDataPendant, on_delete=models.DO_NOTHING)
-    nameplate = ForeignKey(InfoDataNameplate, on_delete=models.DO_NOTHING)
     official_verify = ForeignKey(InfoDataOfficialVerify, on_delete=models.DO_NOTHING)
     vip = ForeignKey(InfoDataVip, on_delete=models.DO_NOTHING)
     toutu = TextField()
@@ -75,10 +71,18 @@ class InfoData(models.Model):
     theme_preview = TextField()
     coins = BigIntegerField()
     im9_sign = TextField()
-    playNum = BigIntegerField()
     fans_badge = BooleanField()
 
     local_recorded_at = DateTimeField(auto_now_add=True)
+
+    # approve = BooleanField()
+    # DisplayRank = TextField()
+    # place = TextField()
+    # description = TextField()
+    # article = BigIntegerField()
+    # pendant = ForeignKey(InfoDataPendant, on_delete=models.DO_NOTHING)
+    # nameplate = ForeignKey(InfoDataNameplate, on_delete=models.DO_NOTHING)
+    # playNum = BigIntegerField()
 
 
 class Info(models.Model):
@@ -89,13 +93,32 @@ class Info(models.Model):
 
 
 class Upo(models.Model):
-    mid = CharField(primary_key=True, max_length=30)
-    info = ForeignKey(Info, on_delete=models.DO_NOTHING)
+    PENDING = 0
+    APPROVED = 1
+    REJECTED = 2
+    PUBLISHED = 3
+    REMOVED = -1
+    CONDITION_CHOICES = ((PENDING, '待审核'),
+                         (APPROVED, '已核准'),
+                         (REJECTED, '已拒绝'),
+                         (PUBLISHED, '已发布'),
+                         (REMOVED, '已移除'),)
 
+    mid = CharField(primary_key=True, max_length=30)
+    info = ForeignKey(Info, on_delete=models.DO_NOTHING, null=True)
+
+    condition = IntegerField(choices=CONDITION_CHOICES, default=PENDING)
+    instruction = TextField()
     submitter = TextField()
-    deleted = BooleanField()
 
     local_updated_at = DateTimeField(auto_now_add=True)
+    local_created_at = DateTimeField(auto_now_add=True)
+
+
+class LogRecord(models.Model):
+
+    content = TextField()
+
     local_created_at = DateTimeField(auto_now_add=True)
 
 
