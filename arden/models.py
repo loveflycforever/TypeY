@@ -4,35 +4,33 @@ from django.db.models import TextField, BigIntegerField, DateTimeField, BooleanF
 
 
 class Info(models.Model):
-    info_status = BooleanField()
-
+    status = BooleanField(default=False)
     # data
-    mid = BigIntegerField()
-    name = TextField()
-    sex = TextField()
-    rank = BigIntegerField()
-    face = TextField()
-    regtime = BigIntegerField()
-    spacesta = BigIntegerField()
-    birthday = TextField()
-    sign = TextField()
-    toutu = TextField()
-    toutuId = BigIntegerField()
-    theme = TextField()
-    theme_preview = TextField()
-    coins = BigIntegerField()
-    im9_sign = TextField()
-    fans_badge = BooleanField()
-
+    mid = BigIntegerField(null=True)
+    name = TextField(null=True)
+    sex = TextField(null=True)
+    rank = BigIntegerField(null=True)
+    face = TextField(null=True)
+    regtime = BigIntegerField(null=True)
+    spacesta = BigIntegerField(null=True)
+    birthday = TextField(null=True)
+    sign = TextField(null=True)
+    toutu = TextField(null=True)
+    toutuId = BigIntegerField(null=True)
+    theme = TextField(null=True)
+    theme_preview = TextField(null=True)
+    coins = BigIntegerField(null=True)
+    im9_sign = TextField(null=True)
+    fans_badge = BooleanField(default=False)
     # level_info
-    level_info_current_level = BigIntegerField()
+    level_info_current_level = BigIntegerField(null=True)
     # official_verify
-    official_verify_type = BigIntegerField()
-    official_verify_desc = TextField()
-    official_verify_suffix = TextField()
+    official_verify_type = BigIntegerField(null=True)
+    official_verify_desc = TextField(null=True)
+    official_verify_suffix = TextField(null=True)
     # vip
-    vip_vipType = BigIntegerField()
-    vip_vipStatus = BigIntegerField()
+    vip_vipType = BigIntegerField(null=True)
+    vip_vipStatus = BigIntegerField(null=True)
 
     local_recorded_at = DateTimeField(auto_now_add=True)
 
@@ -61,8 +59,8 @@ class Upo(models.Model):
 
 class LogRecord(models.Model):
 
-    content = TextField()
-    submitter = TextField()
+    content = TextField(null=True)
+    submitter = TextField(null=True)
 
     local_created_at = DateTimeField(auto_now_add=True)
 

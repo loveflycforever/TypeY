@@ -6,6 +6,7 @@ from common.BilibiliUtils import getInfo
 
 import json
 
+
 def appendUpo(request):
     form = UpoForm()
     label = '新的信息'
@@ -55,27 +56,27 @@ def collectUpoInfo(request):
 
     vip_vipType = jsonObject['data']['vip']['vipType']
     vip_vipStatus = jsonObject['data']['vip']['vipStatus']
-    
-    Info.objects.create(info_status = info_status,
-                        mid = mid,
-                        name = name,
-                        sex = sex,
-                        rank = rank,
-                        face = face,
-                        regtime = regtime,
-                        spacesta = spacesta,
-                        birthday = birthday,
-                        sign = sign,
-                        toutu = toutu,
-                        toutuId = toutuId,
-                        theme = theme,
-                        theme_preview = theme_preview,
-                        coins = coins,
-                        im9_sign = im9_sign,
-                        fans_badge = fans_badge,
-                        level_info_current_level = level_info_current_level,
-                        official_verify_type = official_verify_type,
-                        official_verify_desc = official_verify_desc,
-                        official_verify_suffix = official_verify_suffix,
-                        vip_vipType = vip_vipType,
-                        vip_vipStatus = vip_vipStatus)
+
+    Info.objects.create(info_status=info_status,
+                        mid=mid,
+                        name=name,
+                        sex=sex,
+                        rank=rank,
+                        face=face,
+                        regtime=regtime,
+                        spacesta=spacesta,
+                        birthday=birthday,
+                        sign=sign,
+                        toutu=toutu,
+                        toutuId=toutuId,
+                        theme=theme,
+                        theme_preview=theme_preview,
+                        coins=coins,
+                        im9_sign=im9_sign,
+                        fans_badge=fans_badge,
+                        level_info_current_level=level_info_current_level,
+                        official_verify_type=official_verify_type,
+                        official_verify_desc=official_verify_desc,
+                        official_verify_suffix=official_verify_suffix,
+                        vip_vipType=vip_vipType,
+                        vip_vipStatus=vip_vipStatus)
