@@ -3,56 +3,10 @@ from django.db.models import ForeignKey, IntegerField
 from django.db.models import TextField, BigIntegerField, DateTimeField, BooleanField, CharField
 
 
-class InfoDataVip(models.Model):
-    vipType = BigIntegerField()
-    vipStatus = BigIntegerField()
+class Info(models.Model):
+    info_status = BooleanField()
 
-    local_recorded_at = DateTimeField(auto_now_add=True)
-
-    # dueRemark = TextField()
-    # accessStatus = BigIntegerField()
-    # vipStatusWarn = TextField()
-
-
-class InfoDataOfficialVerify(models.Model):
-    type = BigIntegerField()
-    desc = TextField()
-    suffix = TextField()
-
-    local_recorded_at = DateTimeField(auto_now_add=True)
-
-
-# class InfoDataNameplate(models.Model):
-#     nid = BigIntegerField()
-#     name = TextField()
-#     image = TextField()
-#     image_small = TextField()
-#     level = TextField()
-#     condition = TextField()
-#
-#     local_recorded_at = DateTimeField(auto_now_add=True)
-
-
-# class InfoDataPendant(models.Model):
-#     pid = BigIntegerField()
-#     name = TextField()
-#     image = TextField()
-#     expire = BigIntegerField()
-#
-#     local_recorded_at = DateTimeField(auto_now_add=True)
-
-
-class InfoDataLevelInfo(models.Model):
-    current_level = BigIntegerField()
-
-    local_recorded_at = DateTimeField(auto_now_add=True)
-
-    # current_min = BigIntegerField()
-    # current_exp = BigIntegerField()
-    # next_exp = BigIntegerField()
-
-
-class InfoData(models.Model):
+    # data
     mid = BigIntegerField()
     name = TextField()
     sex = TextField()
@@ -62,9 +16,6 @@ class InfoData(models.Model):
     spacesta = BigIntegerField()
     birthday = TextField()
     sign = TextField()
-    level_info = ForeignKey(InfoDataLevelInfo, on_delete=models.DO_NOTHING)
-    official_verify = ForeignKey(InfoDataOfficialVerify, on_delete=models.DO_NOTHING)
-    vip = ForeignKey(InfoDataVip, on_delete=models.DO_NOTHING)
     toutu = TextField()
     toutuId = BigIntegerField()
     theme = TextField()
@@ -73,21 +24,15 @@ class InfoData(models.Model):
     im9_sign = TextField()
     fans_badge = BooleanField()
 
-    local_recorded_at = DateTimeField(auto_now_add=True)
-
-    # approve = BooleanField()
-    # DisplayRank = TextField()
-    # place = TextField()
-    # description = TextField()
-    # article = BigIntegerField()
-    # pendant = ForeignKey(InfoDataPendant, on_delete=models.DO_NOTHING)
-    # nameplate = ForeignKey(InfoDataNameplate, on_delete=models.DO_NOTHING)
-    # playNum = BigIntegerField()
-
-
-class Info(models.Model):
-    status = BooleanField()
-    data = ForeignKey(InfoData, on_delete=models.DO_NOTHING)
+    # level_info
+    level_info_current_level = BigIntegerField()
+    # official_verify
+    official_verify_type = BigIntegerField()
+    official_verify_desc = TextField()
+    official_verify_suffix = TextField()
+    # vip
+    vip_vipType = BigIntegerField()
+    vip_vipStatus = BigIntegerField()
 
     local_recorded_at = DateTimeField(auto_now_add=True)
 
@@ -98,7 +43,7 @@ class Upo(models.Model):
     REJECTED = 2
     PUBLISHED = 3
     REMOVED = -1
-    CONDITION_CHOICES = ((PENDING, '待审核'),
+    CONDITION_CHOICES = ((PENDING, '待处理'),
                          (APPROVED, '已核准'),
                          (REJECTED, '已拒绝'),
                          (PUBLISHED, '已发布'),
@@ -108,8 +53,7 @@ class Upo(models.Model):
     info = ForeignKey(Info, on_delete=models.DO_NOTHING, null=True)
 
     condition = IntegerField(choices=CONDITION_CHOICES, default=PENDING)
-    instruction = TextField()
-    submitter = TextField()
+    instruction = TextField(null=True)
 
     local_updated_at = DateTimeField(auto_now_add=True)
     local_created_at = DateTimeField(auto_now_add=True)
@@ -118,6 +62,7 @@ class Upo(models.Model):
 class LogRecord(models.Model):
 
     content = TextField()
+    submitter = TextField()
 
     local_created_at = DateTimeField(auto_now_add=True)
 
