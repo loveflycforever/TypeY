@@ -27,25 +27,28 @@
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
         <br><br>
-        <form action="" method="post">{% csrf_token %}
-            <h1 class="header center blue-text">{{ label }}</h1>
-            <div class="row center">
-                <h5 class="header col s12 light">
-                    哔哩哔哩（bilibili）是中国领先的年轻人文化社区，该网站于2009年6月26日创建，被粉丝们亲切的称为“B站”。
-                </h5>
-            </div>
-            <div class="row center">
-                <div class="input-field col s12">
-                    <input id="id_mid" type="text" name="mid" maxlength="20" required class="validate">
-                    <label for="id_mid">在此填入阿婆主编号</label>
+        <div class="row center">
+            <div class="col s12 m12">
+                <div class="card blue">
+                    <div class="card-content white-text">
+                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient
+                            because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-tabs">
+                        <ul class="tabs tabs-fixed-width tabs-transparent">
+                            <li class="tab"><a href="#test4">Test 1</a></li>
+                            <li class="tab"><a class="active" href="#test5">Test 2</a></li>
+                            <li class="tab"><a href="#test6">Test 3</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-content blue lighten-5">
+                        <div id="test4">Test 1</div>
+                        <div id="test5">Test 2</div>
+                        <div id="test6">Test 3</div>
+                    </div>
                 </div>
             </div>
-            <div class="row center">
-                <button type="submit" class="btn-large waves-effect waves-light orange">
-                    提 交 申 请<i class="material-icons right">send</i>
-                </button>
-            </div>
-        </form>
+        </div>
         <br><br>
     </div>
 </div>

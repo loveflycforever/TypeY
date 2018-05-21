@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from arden.forms import UpoForm
-from arden.models import Info
+from arden.models import Info, Upo
 from common.BilibiliUtils import getInfo
 
 import json
@@ -20,6 +20,19 @@ def appendUpo(request):
         else:
             label = '信息有误'
     return render(request, 'append_upo.html', {'form': form, 'label': label})
+
+
+def listUpo(request):
+    pending_upo = Upo.objects.filter(condition=Upo.PENDING).order_by('-local_created_at')
+    approved_upo = Upo.objects.filter(condition=Upo.APPROVED).order_by('-local_created_at')
+    rejected_upo = Upo.objects.filter(condition=Upo.REJECTED).order_by('-local_created_at')
+    published_upo = Upo.objects.filter(condition=Upo.PUBLISHED).order_by('-local_created_at')
+    removed_upo = Upo.objects.filter(condition=Upo.REMOVED).order_by('-local_created_at')
+    return render(request, 'list_upo.html', {'pending_upo': pending_upo,
+                                             'approved_upo': approved_upo,
+                                             'rejected_upo': rejected_upo,
+                                             'published_upo': published_upo,
+                                             'removed_upo': removed_upo})
 
 
 def collectUpoInfo(request):

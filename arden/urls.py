@@ -4,5 +4,6 @@ from arden import views
 
 urlpatterns = [
     re_path(r'^appendUpo', views.appendUpo),
+    re_path(r'^listUpo', views.listUpo),
     re_path(r'^collectUpoInfo', views.collectUpoInfo),
 ]
