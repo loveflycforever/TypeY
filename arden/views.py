@@ -1,7 +1,7 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from arden.forms import UpoForm
+from arden.models import Info
 from common.BilibiliUtils import getInfo
 
 import json
@@ -23,39 +23,39 @@ def appendUpo(request):
 
 
 def collectUpoInfo(request):
-    upoMid = request['mid']
+    upo_mid = request['mid']
 
-    upoData = getInfo(upoMid)
+    upo_data = getInfo(upo_mid)
 
-    jsonObject = json.loads(upoData)
+    json_object = json.loads(upo_data)
 
-    info_status = jsonObject['status']
+    info_status = json_object['status']
 
-    mid = jsonObject['data']['mid']
-    name = jsonObject['data']['name']
-    sex = jsonObject['data']['sex']
-    rank = jsonObject['data']['rank']
-    face = jsonObject['data']['face']
-    regtime = jsonObject['data']['regtime']
-    spacesta = jsonObject['data']['spacesta']
-    birthday = jsonObject['data']['birthday']
-    sign = jsonObject['data']['sign']
-    toutu = jsonObject['data']['toutu']
-    toutuId = jsonObject['data']['toutuId']
-    theme = jsonObject['data']['theme']
-    theme_preview = jsonObject['data']['theme_preview']
-    coins = jsonObject['data']['coins']
-    im9_sign = jsonObject['data']['im9_sign']
-    fans_badge = jsonObject['data']['fans_badge']
+    mid = json_object['data']['mid']
+    name = json_object['data']['name']
+    sex = json_object['data']['sex']
+    rank = json_object['data']['rank']
+    face = json_object['data']['face']
+    regtime = json_object['data']['regtime']
+    spacesta = json_object['data']['spacesta']
+    birthday = json_object['data']['birthday']
+    sign = json_object['data']['sign']
+    toutu = json_object['data']['toutu']
+    toutuId = json_object['data']['toutuId']
+    theme = json_object['data']['theme']
+    theme_preview = json_object['data']['theme_preview']
+    coins = json_object['data']['coins']
+    im9_sign = json_object['data']['im9_sign']
+    fans_badge = json_object['data']['fans_badge']
 
-    level_info_current_level = jsonObject['data']['level_info']['current_level']
+    level_info_current_level = json_object['data']['level_info']['current_level']
 
-    official_verify_type = jsonObject['data']['official_verify']['type']
-    official_verify_desc = jsonObject['data']['official_verify']['desc']
-    official_verify_suffix = jsonObject['data']['official_verify']['suffix']
+    official_verify_type = json_object['data']['official_verify']['type']
+    official_verify_desc = json_object['data']['official_verify']['desc']
+    official_verify_suffix = json_object['data']['official_verify']['suffix']
 
-    vip_vipType = jsonObject['data']['vip']['vipType']
-    vip_vipStatus = jsonObject['data']['vip']['vipStatus']
+    vip_vipType = json_object['data']['vip']['vipType']
+    vip_vipStatus = json_object['data']['vip']['vipStatus']
 
     Info.objects.create(info_status=info_status,
                         mid=mid,

@@ -7,4 +7,4 @@ def getInfo(mid):
     return HttpUtils.POST(URLS.get('GetInfo'), {'mid': mid}, {'Referer': 'https://space.bilibili.com/%s/' % mid})
 
 
-print(getInfo(5510828))
+# print(getInfo(5510828))
