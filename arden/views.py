@@ -28,11 +28,11 @@ def listUpo(request):
     rejected_upo = Upo.objects.filter(condition=Upo.REJECTED).order_by('-local_created_at')
     published_upo = Upo.objects.filter(condition=Upo.PUBLISHED).order_by('-local_created_at')
     removed_upo = Upo.objects.filter(condition=Upo.REMOVED).order_by('-local_created_at')
-    return render(request, 'list_upo.html', {'pending_upo': pending_upo,
-                                             'approved_upo': approved_upo,
-                                             'rejected_upo': rejected_upo,
-                                             'published_upo': published_upo,
-                                             'removed_upo': removed_upo})
+    return render(request, 'list_upo.html', {'data': {'pending_upo': ('待处理', pending_upo),
+                                                      'approved_upo': ('已核准', approved_upo),
+                                                      'rejected_upo': ('已拒绝', rejected_upo),
+                                                      'published_upo': ('已发布', published_upo),
+                                                      'removed_upo': ('已移除', removed_upo)}})
 
 
 def collectUpoInfo(request):
