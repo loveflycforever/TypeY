@@ -6,9 +6,25 @@
  * Made By MaterializeCSS.com
  */
 
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-	font-size: inherit;
-}
+/*.icon-block {*/
+  /*padding: 0 15px;*/
+/*}*/
+/*.icon-block .material-icons {*/
+	/*font-size: inherit;*/
+/*}*/
+
+/*.waves-color-demo .collection-item {*/
+    /*height: 37px;*/
+    /*line-height: 37px;*/
+    /*-webkit-box-sizing: content-box;*/
+    /*box-sizing: content-box*/
+/*}*/
+
+/*.waves-color-demo .collection-item code {*/
+    /*line-height: 37px*/
+/*}*/
+
+/*.waves-color-demo .btn:not(.waves-light), .waves-color-demo .btn-large:not(.waves-light), .waves-color-demo .btn-small:not(.waves-light) {*/
+    /*background-color: #fff;*/
+    /*color: #212121*/
+/*}*/
