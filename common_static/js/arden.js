@@ -1,7 +1,17 @@
 function manage_approve() {
-    alert("approve");
+    $.post("approve", {}, function (resp) {
+        var status = resp.status;
+        var message = resp.message;
+        var data = resp.data;
+        alert(data);
+    });
 }
 
 function manage_reject() {
-    alert("reject");
+    $.post("reject", {}, function (resp) {
+        var status = resp.status;
+        var message = resp.message;
+        var data = resp.data;
+        alert(data);
+    });
 }

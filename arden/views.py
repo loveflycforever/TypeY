@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from arden.forms import UpoForm
@@ -20,6 +21,16 @@ def appendUpo(request):
         else:
             label = '信息有误'
     return render(request, 'append_upo.html', {'form': form, 'label': label})
+
+
+def approve(request):
+    result = {'status': 1000, 'message': 'OK', 'data': 'you are approved'}
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def reject(request):
+    result = {'status': 1000, 'message': 'OK', 'data': 'you are rejected'}
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 def listUpo(request):

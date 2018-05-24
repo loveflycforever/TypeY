@@ -14,7 +14,7 @@
 <body>
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">Arden</a>
+        <a id="logo-container" href="#" class="brand-logo">A R D E N</a>
         <ul class="right hide-on-med-and-down">
             <li>
                 <a class='dropdown-trigger' href='#' data-target='dropdown1'>
@@ -54,16 +54,15 @@
                 <div class="collection">
                     {% for v in value.1 %}
                         <div class="collection-item">
-                            {{ v.mid }}
-                            {{ v.local_created_at }}
-                            <a onclick="manage_approve()" class="secondary-content tooltipped" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </a>
-                            <span class="secondary-content black-text"><i class="material-icons tiny">looks_two</i></span>
-                            <a onclick="manage_reject()" class="secondary-content tooltipped" data-position="top" data-tooltip="拒绝">
+                            <a onclick="manage_reject()" class="thirdly-content tooltipped" data-position="top" data-tooltip="拒绝">
                                 <i class="material-icons">cancel</i>
                             </a>
-                            <span class="secondary-content black-text"><i class="material-icons tiny">looks_one</i></span>
+{#                            <span class="black-text"><i class="material-icons tiny">1</i></span>#}
+                            {{ v.mid }}
+                            {{ v.local_created_at }}
+                            <a onclick="manage_approve()" class="fourthly-content tooltipped" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </a>
                         </div>
                     {% empty %}
                         <div class="collection-item">There are no athletes. Only computer programmers.

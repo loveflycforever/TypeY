@@ -28,3 +28,15 @@
     /*background-color: #fff;*/
     /*color: #212121*/
 /*}*/
+
+.thirdly-content {
+    float: left;
+    color: #ff9800;
+    padding-right: 18px;
+}
+
+.fourthly-content {
+    float: right;
+    color: #29b6f6;
+    padding-left: 18px;
+}
