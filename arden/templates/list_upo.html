@@ -56,14 +56,14 @@
                         <div class="collection-item">
                             {{ v.mid }}
                             {{ v.local_created_at }}
-                            <a href="#!" class="secondary-content tooltipped" data-position="top" data-tooltip="核准">
+                            <a onclick="manage_approve()" class="secondary-content tooltipped" data-position="top" data-tooltip="核准">
                                 <i class="material-icons">check_box</i>
                             </a>
-                            <span class="secondary-content"><i class="material-icons tiny">looks_two</i></span>
-                            <a href="#!" class="secondary-content tooltipped" data-position="top" data-tooltip="拒绝">
+                            <span class="secondary-content black-text"><i class="material-icons tiny">looks_two</i></span>
+                            <a onclick="manage_reject()" class="secondary-content tooltipped" data-position="top" data-tooltip="拒绝">
                                 <i class="material-icons">cancel</i>
                             </a>
-                            <span class="secondary-content"><i class="material-icons tiny">looks_one</i></span>
+                            <span class="secondary-content black-text"><i class="material-icons tiny">looks_one</i></span>
                         </div>
                     {% empty %}
                         <div class="collection-item">There are no athletes. Only computer programmers.
@@ -103,5 +103,6 @@
 <script src="/static/js/jquery-2.1.1.min.js"></script>
 <script src="/static/js/materialize.js"></script>
 <script src="/static/js/init.js"></script>
+<script src="/static/js/arden.js"></script>
 </body>
 </html>
