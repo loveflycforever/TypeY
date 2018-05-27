@@ -32,7 +32,7 @@ class Collection(models.Model):
     extra = models.CharField(max_length=100, null=True, default=None)
     platform = models.CharField(max_length=100)
     keeper = models.CharField(max_length=100)
-    website = models.CharField(max_length=200)
+    website = models.CharField(max_length=200, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

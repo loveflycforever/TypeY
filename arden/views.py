@@ -15,12 +15,38 @@ def appendUpo(request):
         form = UpoForm(request.POST)
         if form.is_valid():
             new_upo = form.save(commit=False)
-            # check mid is TRUE
             new_upo.save()
             label = '提交成功，继续？'
         else:
+            for error in form.errors:
+                print(error.message)
             label = '信息有误'
     return render(request, 'append_upo.html', {'form': form, 'label': label})
+
+
+def listUpo(request):
+    waiting = Upo.objects\
+        .filter(condition=Upo.PENDING)\
+        .order_by('-local_created_at')
+
+    queuing = Upo.objects\
+        .filter(condition=Upo.APPROVED)\
+        .filter(condition=Upo.FAILED)\
+        .order_by('-local_created_at')
+
+    adverting = Upo.objects\
+        .filter(condition=Upo.SUCCEEDED)\
+        .filter(condition=Upo.PUBLISHED)\
+        .order_by('-local_created_at')
+
+    recycling = Upo.objects\
+        .filter(condition=Upo.REJECTED)\
+        .filter(condition=Upo.REMOVED)\
+        .order_by('-local_created_at')
+    return render(request, 'list_upo.html', {'data': {'waiting': ('待处理', waiting),
+                                                      'queuing': ('排队中', queuing),
+                                                      'adverting': ('公布栏', adverting),
+                                                      'recycling': ('回收站', recycling)}})
 
 
 def approve(request):
@@ -33,20 +59,7 @@ def reject(request):
     return HttpResponse(json.dumps(result), content_type="application/json")
 
 
-def listUpo(request):
-    pending_upo = Upo.objects.filter(condition=Upo.PENDING).order_by('-local_created_at')
-    approved_upo = Upo.objects.filter(condition=Upo.APPROVED).order_by('-local_created_at')
-    rejected_upo = Upo.objects.filter(condition=Upo.REJECTED).order_by('-local_created_at')
-    published_upo = Upo.objects.filter(condition=Upo.PUBLISHED).order_by('-local_created_at')
-    removed_upo = Upo.objects.filter(condition=Upo.REMOVED).order_by('-local_created_at')
-    return render(request, 'list_upo.html', {'data': {'pending_upo': ('待处理', pending_upo),
-                                                      'approved_upo': ('已核准', approved_upo),
-                                                      'rejected_upo': ('已拒绝', rejected_upo),
-                                                      'published_upo': ('已发布', published_upo),
-                                                      'removed_upo': ('已移除', removed_upo)}})
-
-
-def collectUpoInfo(request):
+def collect(request):
     upo_mid = request['mid']
 
     upo_data = getInfo(upo_mid)
@@ -81,26 +94,37 @@ def collectUpoInfo(request):
     vip_vipType = json_object['data']['vip']['vipType']
     vip_vipStatus = json_object['data']['vip']['vipStatus']
 
-    Info.objects.create(info_status=info_status,
-                        mid=mid,
-                        name=name,
-                        sex=sex,
-                        rank=rank,
-                        face=face,
-                        regtime=regtime,
-                        spacesta=spacesta,
-                        birthday=birthday,
-                        sign=sign,
-                        toutu=toutu,
-                        toutuId=toutuId,
-                        theme=theme,
-                        theme_preview=theme_preview,
-                        coins=coins,
-                        im9_sign=im9_sign,
-                        fans_badge=fans_badge,
-                        level_info_current_level=level_info_current_level,
-                        official_verify_type=official_verify_type,
-                        official_verify_desc=official_verify_desc,
-                        official_verify_suffix=official_verify_suffix,
-                        vip_vipType=vip_vipType,
-                        vip_vipStatus=vip_vipStatus)
+    info = Info.objects.create(info_status=info_status,
+                               mid=mid,
+                               name=name,
+                               sex=sex,
+                               rank=rank,
+                               face=face,
+                               regtime=regtime,
+                               spacesta=spacesta,
+                               birthday=birthday,
+                               sign=sign,
+                               toutu=toutu,
+                               toutuId=toutuId,
+                               theme=theme,
+                               theme_preview=theme_preview,
+                               coins=coins,
+                               im9_sign=im9_sign,
+                               fans_badge=fans_badge,
+                               level_info_current_level=level_info_current_level,
+                               official_verify_type=official_verify_type,
+                               official_verify_desc=official_verify_desc,
+                               official_verify_suffix=official_verify_suffix,
+                               vip_vipType=vip_vipType,
+                               vip_vipStatus=vip_vipStatus)
+
+    print(info.id)
+    Upo.objects.filter(mid=mid).update(info=info)
+    result = {'status': 1000, 'message': 'OK', 'data': 'you are loaded'}
+    return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def remove(request):
+    result = {'status': 1000, 'message': 'OK', 'data': 'you are removed'}
+    return HttpResponse(json.dumps(result), content_type="application/json")
+

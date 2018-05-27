@@ -54,15 +54,43 @@
                 <div class="collection">
                     {% for v in value.1 %}
                         <div class="collection-item">
+                            {# <span class="black-text"><i class="material-icons tiny">1</i></span> #}
+                            {% if v.condition == 0 %}
                             <a onclick="manage_reject()" class="thirdly-content tooltipped" data-position="top" data-tooltip="拒绝">
                                 <i class="material-icons">cancel</i>
                             </a>
-{#                            <span class="black-text"><i class="material-icons tiny">1</i></span>#}
+                            {% endif %}
                             {{ v.mid }}
                             {{ v.local_created_at }}
-                            <a onclick="manage_approve()" class="fourthly-content tooltipped" data-position="top" data-tooltip="核准">
+                            {% if v.condition == 0 %}
+                            <a onclick="manage_approve()" class="fourthly-content tooltipped green-text" data-position="top" data-tooltip="核准">
                                 <i class="material-icons">check_box</i>
                             </a>
+                            {% elif v.condition == 1 %}
+                            <a onclick="manage_collect()" class="fourthly-content tooltipped red-text" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </a>
+                            {% elif v.condition == 2 %}
+                            <a onclick="manage_approve()" class="fourthly-content tooltipped green-text" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </a>
+                            {% elif v.condition == 3 %}
+                            <a onclick="manage_publish()" class="fourthly-content tooltipped yellow-text" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </a>
+                            {% elif v.condition == 4 %}
+                            <a onclick="manage_collect()" class="fourthly-content tooltipped red-text" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </a>
+                            {% elif v.condition == 5 %}
+                            <span class="fourthly-content tooltipped" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </span>
+                            {% elif v.condition == -1 %}
+                            <span class="fourthly-content tooltipped" data-position="top" data-tooltip="核准">
+                                <i class="material-icons">check_box</i>
+                            </span>
+                            {% endif %}
                         </div>
                     {% empty %}
                         <div class="collection-item">There are no athletes. Only computer programmers.

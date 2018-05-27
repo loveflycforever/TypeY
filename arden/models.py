@@ -39,11 +39,15 @@ class Upo(models.Model):
     PENDING = 0
     APPROVED = 1
     REJECTED = 2
-    PUBLISHED = 3
+    SUCCEEDED = 3
+    FAILED = 4
+    PUBLISHED = 5
     REMOVED = -1
     CONDITION_CHOICES = ((PENDING, '待处理'),
                          (APPROVED, '已核准'),
                          (REJECTED, '已拒绝'),
+                         (SUCCEEDED, '已成功'),
+                         (FAILED, '已失败'),
                          (PUBLISHED, '已发布'),
                          (REMOVED, '已移除'),)
 
