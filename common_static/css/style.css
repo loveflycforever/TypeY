@@ -40,3 +40,19 @@
     color: #29b6f6;
     padding-left: 18px;
 }
+
+.my-btn {
+    width: 1.6em;
+    height: 1.6em;
+    padding-right: 0px;
+    margin-right: 18px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    /*width: 24px;*/
+    /*height: 24px;*/
+}
+
+.my-btn i {
+    line-height: 1;
+    font-size: 24px;
+}

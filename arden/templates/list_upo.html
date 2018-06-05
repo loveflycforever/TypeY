@@ -42,60 +42,68 @@
         <br><br>
         <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
             {% for key, value in data.items %}
-                {% if forloop.first %}
-                    <li class="tab"><a class="active" href="#{{ key }}">{{ value.0 }}</a></li>
-                {% else %}
-                    <li class="tab"><a href="#{{ key }}">{{ value.0 }}</a></li>
-                {% endif %}
+            {% if forloop.first %}
+            <li class="tab"><a class="active" href="#{{ key }}">{{ value.0 }}</a></li>
+            {% else %}
+            <li class="tab"><a href="#{{ key }}">{{ value.0 }}</a></li>
+            {% endif %}
             {% endfor %}
         </ul>
         {% for key, value in data.items %}
-            <div id="{{ key }}" class="col s12">
-                <div class="collection">
-                    {% for v in value.1 %}
-                        <div class="collection-item">
-                            {# <span class="black-text"><i class="material-icons tiny">1</i></span> #}
-                            {% if v.condition == 0 %}
-                            <a onclick="manage_reject()" class="thirdly-content tooltipped" data-position="top" data-tooltip="拒绝">
-                                <i class="material-icons">cancel</i>
-                            </a>
-                            {% endif %}
-                            {{ v.mid }}
-                            {{ v.local_created_at }}
-                            {% if v.condition == 0 %}
-                            <a onclick="manage_approve()" class="fourthly-content tooltipped green-text" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </a>
-                            {% elif v.condition == 1 %}
-                            <a onclick="manage_collect()" class="fourthly-content tooltipped red-text" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </a>
-                            {% elif v.condition == 2 %}
-                            <a onclick="manage_approve()" class="fourthly-content tooltipped green-text" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </a>
-                            {% elif v.condition == 3 %}
-                            <a onclick="manage_publish()" class="fourthly-content tooltipped yellow-text" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </a>
-                            {% elif v.condition == 4 %}
-                            <a onclick="manage_collect()" class="fourthly-content tooltipped red-text" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </a>
-                            {% elif v.condition == 5 %}
-                            <span class="fourthly-content tooltipped" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </span>
-                            {% elif v.condition == -1 %}
-                            <span class="fourthly-content tooltipped" data-position="top" data-tooltip="核准">
-                                <i class="material-icons">check_box</i>
-                            </span>
-                            {% endif %}
-                        </div>
-                    {% empty %}
-                        <div class="collection-item">There are no athletes. Only computer programmers.
-                        </div>
-                    {% endfor %}
+        <div id="{{ key }}" class="col s12">
+            <div class="collection">
+                {% for v in value.1 %}
+                <div class="collection-item">
+                    <span class="thirdly-content black-text"># {{ forloop.counter }}</span>
+                    {% if v.condition == 0 %}
+                    <a onclick="manage_reject({{ v.mid }})"
+                       class="waves-effect waves-circle btn-floating thirdly-content my-btn tooltipped"
+                       data-position="top" data-tooltip="拒绝">
+                        <i class="material-icons">cancel</i>
+                    </a>
+                    {% endif %}
+                    {{ v.mid }}
+                    {{ v.local_created_at }}
+                    {% if v.condition == 0 %}
+                    <a onclick="manage_approve({{ v.mid }})"
+                       class="fourthly-content tooltipped green-text"
+                       data-position="right" data-tooltip="核准">
+                        <i class="material-icons">check_box</i>
+                    </a>
+                    {% elif v.condition == 1 %}
+                    <a onclick="manage_collect({{ v.mid }})"
+                       class="fourthly-content tooltipped red-text"
+                       data-position="top" data-tooltip="收集">
+                        <i class="material-icons">add_shopping_cart</i>
+                    </a>
+                    {% elif v.condition == 2 %}
+                    <a onclick="manage_approve({{ v.mid }})"
+                       class="fourthly-content tooltipped green-text"
+                       data-position="top" data-tooltip="重新核准">
+                        <i class="material-icons">check</i>
+                    </a>
+                    {% elif v.condition == 3 %}
+                    <a onclick="manage_publish({{ v.mid }})"
+                       class="fourthly-content tooltipped yellow-text"
+                       data-position="top" data-tooltip="发布">
+                        <i class="material-icons">email</i>
+                    </a>
+                    {% elif v.condition == 4 %}
+                    <a onclick="manage_collect({{ v.mid }})"
+                       class="fourthly-content tooltipped red-text"
+                       data-position="top" data-tooltip="重新收集">
+                        <i class="material-icons">add_shopping_cart</i>
+                    </a>
+                    {% elif v.condition == 5 %}
+                    <span class="fourthly-content">已发布</span>
+                    {% elif v.condition == -1 %}
+                    <span class="fourthly-content">已移除</span>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="collection-item">There are no athletes. Only computer programmers.
+                </div>
+                {% endfor %}
                 </div>
             </div>
         {% endfor %}
@@ -131,5 +139,6 @@
 <script src="/static/js/materialize.js"></script>
 <script src="/static/js/init.js"></script>
 <script src="/static/js/arden.js"></script>
+<script src="/static/js/list_upo.js"></script>
 </body>
 </html>

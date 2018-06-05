@@ -43,18 +43,18 @@ class Upo(models.Model):
     FAILED = 4
     PUBLISHED = 5
     REMOVED = -1
-    CONDITION_CHOICES = ((PENDING, '待处理'),
-                         (APPROVED, '已核准'),
-                         (REJECTED, '已拒绝'),
-                         (SUCCEEDED, '已成功'),
-                         (FAILED, '已失败'),
-                         (PUBLISHED, '已发布'),
-                         (REMOVED, '已移除'),)
+    CONDITIONS = ((PENDING, '待处理'),
+                  (APPROVED, '已核准'),
+                  (REJECTED, '已拒绝'),
+                  (SUCCEEDED, '已成功'),
+                  (FAILED, '已失败'),
+                  (PUBLISHED, '已发布'),
+                  (REMOVED, '已移除'),)
 
     mid = CharField(primary_key=True, max_length=30)
-    info = ForeignKey(Info, on_delete=models.DO_NOTHING, null=True)
+    info = ForeignKey(Info, on_delete=models.DO_NOTHING, null=True, default=None)
 
-    condition = IntegerField(choices=CONDITION_CHOICES, default=PENDING)
+    condition = IntegerField(choices=CONDITIONS, default=PENDING)
     instruction = TextField(null=True)
 
     local_updated_at = DateTimeField(auto_now_add=True)
