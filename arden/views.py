@@ -1,7 +1,9 @@
+from django.core import serializers
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from arden.beans.UpoItem import UpoItem
 from arden.forms import UpoForm
 from arden.models import Info, Upo
 from common.BilibiliUtils import getInfoAt
@@ -22,7 +24,7 @@ def appendUpo(request):
             for error in form.errors:
                 print(error.message)
             label = '信息有误'
-    return render(request, 'append_upo.html', {'form': form, 'label': label})
+    return render(request, 'declare.html', {'form': form, 'label': label})
 
 
 def listUpo(request):
@@ -77,52 +79,32 @@ def collect(request):
 
 def extractFrom(upo_data):
     json_object = json.loads(upo_data)
-    info_status = json_object['status']
-    mid = json_object['data']['mid']
-    name = json_object['data']['name']
-    sex = json_object['data']['sex']
-    rank = json_object['data']['rank']
-    face = json_object['data']['face']
-    regtime = json_object['data']['regtime']
-    spacesta = json_object['data']['spacesta']
-    birthday = json_object['data']['birthday']
-    sign = json_object['data']['sign']
-    toutu = json_object['data']['toutu']
-    toutuId = json_object['data']['toutuId']
-    theme = json_object['data']['theme']
-    theme_preview = json_object['data']['theme_preview']
-    coins = json_object['data']['coins']
-    im9_sign = json_object['data']['im9_sign']
-    fans_badge = json_object['data']['fans_badge']
-    level_info_current_level = json_object['data']['level_info']['current_level']
-    official_verify_type = json_object['data']['official_verify']['type']
-    official_verify_desc = json_object['data']['official_verify']['desc']
-    official_verify_suffix = json_object['data']['official_verify']['suffix']
-    vip_vipType = json_object['data']['vip']['vipType']
-    vip_vipStatus = json_object['data']['vip']['vipStatus']
-    return Info(status=info_status,
-                mid=mid,
-                name=name,
-                sex=sex,
-                rank=rank,
-                face=face,
-                regtime=regtime,
-                spacesta=spacesta,
-                birthday=birthday,
-                sign=sign,
-                toutu=toutu,
-                toutuId=toutuId,
-                theme=theme,
-                theme_preview=theme_preview,
-                coins=coins,
-                im9_sign=im9_sign,
-                fans_badge=fans_badge,
-                level_info_current_level=level_info_current_level,
-                official_verify_type=official_verify_type,
-                official_verify_desc=official_verify_desc,
-                official_verify_suffix=official_verify_suffix,
-                vip_vipType=vip_vipType,
-                vip_vipStatus=vip_vipStatus)
+
+    extracted = Info()
+    extracted.status = json_object['status']
+    extracted.mid = json_object['data']['mid']
+    extracted.name = json_object['data']['name']
+    extracted.sex = json_object['data']['sex']
+    extracted.rank = json_object['data']['rank']
+    extracted.face = json_object['data']['face']
+    extracted.regtime = json_object['data']['regtime']
+    extracted.spacesta = json_object['data']['spacesta']
+    extracted.birthday = json_object['data']['birthday']
+    extracted.sign = json_object['data']['sign']
+    extracted.toutu = json_object['data']['toutu']
+    extracted.toutuId = json_object['data']['toutuId']
+    extracted.theme = json_object['data']['theme']
+    extracted.theme_preview = json_object['data']['theme_preview']
+    extracted.coins = json_object['data']['coins']
+    extracted.im9_sign = json_object['data']['im9_sign']
+    extracted.fans_badge = json_object['data']['fans_badge']
+    extracted.level_info_current_level = json_object['data']['level_info']['current_level']
+    extracted.official_verify_type = json_object['data']['official_verify']['type']
+    extracted.official_verify_desc = json_object['data']['official_verify']['desc']
+    extracted.official_verify_suffix = json_object['data']['official_verify']['suffix']
+    extracted.vip_vipType = json_object['data']['vip']['vipType']
+    extracted.vip_vipStatus = json_object['data']['vip']['vipStatus']
+    return extracted
 
 
 def remove(request):
@@ -132,9 +114,30 @@ def remove(request):
     return jsonResponse(result)
 
 
+def show(request):
+    published = Upo.objects.filter(condition=Upo.PUBLISHED).order_by('-local_created_at')
+    # print(str(Upo.objects.filter(condition=Upo.PUBLISHED).order_by('-local_created_at').query))
+    data = []
+    for item in published:
+        info = item.info
+        print(info.name)
+        upo_item = UpoItem(info.mid, info.name, info.sex, info.face, info.regtime, info.birthday, info.sign,
+                           info.level_info_current_level)
+        data.append(upo_item)
+    result = {'status': 1000, 'message': 'OK', 'data': data}
+    return jsonResponse(result)
+
+
+def mapz(request, name=None):
+    if name:
+        name += '.html'
+        return render(request, name)
+    return render(request, 'declare.html')
+
+
 def getPostParameter(request, key):
     return request.POST.get(key)
 
 
 def jsonResponse(data):
-    return HttpResponse(json.dumps(data), content_type="application/json")
+    return HttpResponse(json.dumps(data, default=lambda obj: obj.__dict__), content_type="application/json")

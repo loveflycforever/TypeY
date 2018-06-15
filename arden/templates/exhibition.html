@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>申请</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+    {#网页图片403无法显示的解决方法#}
+    <meta name="referrer" content="no-referrer" />
+
+    <!-- CSS  -->
+    <link href="/static/css/icon.css" rel="stylesheet">
+    <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">A R D E N</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Link</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">菜单</i></a>
+    </div>
+</nav>
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <br><br>
+        <div class="row" id="dataScope">
+{#            <div class="col s12 m6">#}
+{#                <div class="card">#}
+{#                    <div class="card-image waves-effect waves-block waves-light">#}
+{#                        <img class="activator" src="images/office.jpg">#}
+{#                    </div>#}
+{#                    <div class="card-content">#}
+{#                        <span class="card-title activator grey-text text-darken-4">Card Title#}
+{#                            <i class="material-icons right">more_vert</i>#}
+{#                        </span>#}
+{#                        <p><a href="#">This is a link</a></p>#}
+{#                    </div>#}
+{#                    <div class="card-reveal">#}
+{#                        <span class="card-title grey-text text-darken-4">Card Title#}
+{#                            <i class="material-icons right">close</i>#}
+{#                        </span>#}
+{#                        <p>Here is some more information about this product that is only revealed once clicked on.</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+        <br><br>
+    </div>
+</div>
+
+<footer class="page-footer orange">
+    <div class="container">
+        <div class="row">
+            <div class="col l9 s12">
+                <h5 class="white-text">Bio</h5>
+                <p class="grey-text text-lighten-4">" 春观夜樱 夏望繁星 秋赏满月 冬会初雪 "</p>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Connect</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Amara</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            由 <a class="orange-text text-lighten-3" href="https://github.com/loveflycforever">SuperF</a> 制作
+        </div>
+    </div>
+</footer>
+
+
+<!--  Scripts-->
+<script src="/static/js/jquery-2.1.1.min.js"></script>
+<script src="/static/js/materialize.js"></script>
+<script src="/static/js/init.js"></script>
+
+<script>
+$(function(){
+    show_upo();
+});
+
+function show_upo() {
+    $.get("../show", function (resp) {
+        var data = resp.data;
+{#        alert(JSON.stringify(data));#}
+        var c = '';
+        $.each(data, function(i, item){
+{#            console.log(i, item);#}
+            var avatar = item.avatar;
+            var bilibiliId = item.bilibiliId;
+            var birthday = item.birthday;
+            var level = item.level;
+            var name = item.name;
+            var registerTime = item.registerTime;
+            var sex = item.sex;
+            var sign = item.sign;
+
+            c += '<div class="col s12 m4">';
+            c += '    <div class="card">';
+            c += '        <div class="card-image waves-effect waves-block waves-light">';
+            c += '            <img class="activator" src="' + avatar + '">';
+            c += '        </div>';
+            c += '        <div class="card-content">';
+            c += '            <span class="card-title activator grey-text text-darken-4">' + bilibiliId;
+            c += '                <i class="material-icons right">more_vert</i>';
+            c += '            </span>';
+            c += '            <p><a href="#">' + name + '</a></p>';
+            c += '        </div>';
+            c += '        <div class="card-reveal">';
+            c += '            <span class="card-title grey-text text-darken-4">关于';
+            c += '                <i class="material-icons right">close</i>';
+            c += '            </span>';
+            c += '            <p>';
+            c += '            B站编号 ' + bilibiliId + '<br>';
+            c += '            昵称 ' + name + '<br>';
+            c += '            性别 ' + sex + '<br>';
+            c += '            注册时间 ' + registerTime + '<br>';
+            c += '            生日 ' + birthday + '<br>';
+            c += '            个性签名 ' + sign + '<br>';
+            c += '            等级 ' + level + '<br>';
+            c += '            </p>';
+            c += '        </div>';
+            c += '    </div>';
+            c += '</div>';
+        });
+        // for(var i in data){}
+        $("#dataScope").empty().append(c);
+    });
+}
+</script>
+</body>
+</html>
